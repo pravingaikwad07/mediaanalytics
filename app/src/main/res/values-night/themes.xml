@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MediaStreamAnalytics" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/onPrimary_dark</item>
+        <item name="colorPrimaryContainer">@color/primaryContainer_dark</item>
+        <item name="colorOnPrimaryContainer">@color/onPrimaryContainer_dark</item>
+        <item name="colorSecondary">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/onSecondary_dark</item>
+        <item name="colorSecondaryContainer">@color/secondaryContainer_dark</item>
+        <item name="colorOnSecondaryContainer">@color/onSecondaryContainer_dark</item>
+        <item name="colorTertiary">@color/tertiary_dark</item>
+        <item name="colorOnTertiary">@color/onTertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/tertiaryContainer_dark</item>
+        <item name="colorOnTertiaryContainer">@color/onTertiaryContainer_dark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

@@ -2,9 +2,9 @@ package com.pravin.mediastreamanalytics.analytics
 
 import android.content.Context
 import android.os.Bundle
+import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.analytics.analytics
 
 /**
  * Singleton class to manage Firebase Analytics events.
@@ -28,7 +28,7 @@ object AnalyticsManager {
      * Log the app start event.
      */
     fun logAppStart() {
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
+        firebaseAnalytics.logEvent("app_start", null)
     }
 
     /**
