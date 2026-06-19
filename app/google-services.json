@@ -1,28 +1,26 @@
 {
   "project_info": {
-    "project_number": "1234567890",
-    "project_id": "mediastreamanalytics-dummy",
-    "storage_bucket": "mediastreamanalytics-dummy.appspot.com"
+    "project_number": "24354676372",
+    "project_id": "mediastreamanalyticspoc",
+    "storage_bucket": "mediastreamanalyticspoc.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1234567890:android:abcdef1234567890",
+        "mobilesdk_app_id": "1:24354676372:android:0f5aee64ef4f11221f5e81",
         "android_client_info": {
           "package_name": "com.pravin.mediastreamanalytics"
         }
       },
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "dummy_api_key"
+          "current_key": "AIzaSyA5KNlBMmujkzE2bK2xtCnsOP2fRf5wmuk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
         }
       }
     }

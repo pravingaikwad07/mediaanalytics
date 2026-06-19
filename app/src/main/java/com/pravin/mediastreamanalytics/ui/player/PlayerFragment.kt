@@ -47,6 +47,8 @@ class PlayerFragment : Fragment() {
         setupListeners()
         observeViewModel()
 
+
+
         // Log default media source
         AnalyticsManager.logDefaultMediaSource(viewModel.mediaSource.value)
     }
@@ -72,8 +74,10 @@ class PlayerFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnPlayPause.setOnClickListener {
+            val wasPlaying = viewModel.isPlaying.value
             viewModel.togglePlayback()
-            if (viewModel.isPlaying.value) {
+            if (!wasPlaying) {
+                // We just started playing
                 AnalyticsManager.logMediaItemClick("Mock Track")
             }
         }
@@ -91,9 +95,12 @@ class PlayerFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isPlaying.collect { isPlaying ->
-                    // For demo, we just use a generic icon change logic
-                    // In real app, we would change the actual icon
-                    binding.btnPlayPause.alpha = if (isPlaying) 1.0f else 0.7f
+                    val iconRes = if (isPlaying) {
+                        R.drawable.outline_pause_circle_24
+                    } else {
+                        R.drawable.outline_play_arrow_24
+                    }
+                    binding.btnPlayPause.setIconResource(iconRes)
                 }
             }
         }

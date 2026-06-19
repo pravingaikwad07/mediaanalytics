@@ -2,6 +2,8 @@ package com.pravin.mediastreamanalytics.analytics
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
@@ -11,10 +13,35 @@ import com.google.firebase.analytics.analytics
  */
 object AnalyticsManager {
 
+    private const val TAG = "AnalyticsManager"
+    private var DEBUG_MODE = true // Toggle for Logs and Toasts
+
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var appContext: Context
 
     fun initialize(context: Context) {
+        appContext = context.applicationContext
         firebaseAnalytics = Firebase.analytics
+    }
+
+    private fun logInternal(eventName: String, params: Bundle? = null) {
+        // Actual Firebase Logging
+        firebaseAnalytics.logEvent(eventName, params)
+
+        // Debug Logs and Toasts
+        if (DEBUG_MODE) {
+            val message = "Event: $eventName | Params: ${params?.let { bundleToMap(it) } ?: "null"}"
+            Log.d(TAG, message)
+            Toast.makeText(appContext, "Logged: $eventName", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun bundleToMap(bundle: Bundle): Map<String, Any?> {
+        val map = mutableMapOf<String, Any?>()
+        for (key in bundle.keySet()) {
+            map[key] = bundle.get(key)
+        }
+        return map
     }
 
     /**
@@ -22,13 +49,17 @@ object AnalyticsManager {
      */
     fun setUserId(userId: String?) {
         firebaseAnalytics.setUserId(userId)
+        if (DEBUG_MODE) {
+            Log.d(TAG, "User ID set to: $userId")
+            Toast.makeText(appContext, "User ID: $userId", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
      * Log the app start event.
      */
     fun logAppStart() {
-        firebaseAnalytics.logEvent("app_start", null)
+        logInternal("app_start")
     }
 
     /**
@@ -38,7 +69,7 @@ object AnalyticsManager {
         val bundle = Bundle().apply {
             putString("source_name", sourceName)
         }
-        firebaseAnalytics.logEvent("default_media_source", bundle)
+        logInternal("default_media_source", bundle)
     }
 
     /**
@@ -49,7 +80,7 @@ object AnalyticsManager {
             putString("old_source", oldSource)
             putString("new_source", newSource)
         }
-        firebaseAnalytics.logEvent("media_source_switch", bundle)
+        logInternal("media_source_switch", bundle)
     }
 
     /**
@@ -59,7 +90,7 @@ object AnalyticsManager {
         val bundle = Bundle().apply {
             putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
         }
-        firebaseAnalytics.logEvent("media_item_click", bundle)
+        logInternal("media_item_click", bundle)
     }
 
     /**
@@ -69,7 +100,7 @@ object AnalyticsManager {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
         }
-        firebaseAnalytics.logEvent("media_item_next", bundle)
+        logInternal("media_item_next", bundle)
     }
 
     /**
@@ -79,6 +110,6 @@ object AnalyticsManager {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
         }
-        firebaseAnalytics.logEvent("media_item_previous", bundle)
+        logInternal("media_item_previous", bundle)
     }
 }
