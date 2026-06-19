@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.MediaStreamAnalytics" parent="Theme.MaterialComponents.Light" />
+</resources>
