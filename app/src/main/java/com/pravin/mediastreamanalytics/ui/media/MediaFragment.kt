@@ -53,7 +53,7 @@ class MediaFragment : Fragment() {
         observeViewModel()
 
         AnalyticsManager.logScreenView("Media Screen", "MediaFragment")
-        AnalyticsManager.logDefaultMediaSource(viewModel.mediaSource.value)
+        AnalyticsManager.logMediaSourceSelected(viewModel.mediaSource.value, viewModel.mediaSource.value, "default")
     }
 
     private fun setupDropdown() {
@@ -70,7 +70,7 @@ class MediaFragment : Fragment() {
             val newSource = viewModel.availableSources[position]
             if (oldSource != newSource) {
                 viewModel.setMediaSource(newSource)
-                AnalyticsManager.logMediaSourceSwitch(oldSource, newSource)
+                AnalyticsManager.logMediaSourceSelected(oldSource, newSource, "dropdown")
             }
         }
     }
@@ -83,20 +83,20 @@ class MediaFragment : Fragment() {
             updatePlaceholder(actionText)
             
             if (!wasPlaying) {
-                AnalyticsManager.logMediaPlay("Mock Track", viewModel.mediaSource.value, actionText)
+                AnalyticsManager.logMediaInteraction(actionText, viewModel.mediaSource.value)
             } else {
-                AnalyticsManager.logMediaPause("Mock Track", viewModel.mediaSource.value, actionText)
+                AnalyticsManager.logMediaInteraction(actionText,viewModel.mediaSource.value)
             }
         }
 
         binding.btnNext.setOnClickListener {
             updatePlaceholder("media_next")
-            AnalyticsManager.logMediaItemNext("Mock Track", viewModel.mediaSource.value, "media_next")
+            AnalyticsManager.logMediaInteraction("media_next", viewModel.mediaSource.value, )
         }
 
         binding.btnPrevious.setOnClickListener {
             updatePlaceholder("media_previous")
-            AnalyticsManager.logMediaItemPrevious("Mock Track", viewModel.mediaSource.value,"media_previous")
+            AnalyticsManager.logMediaInteraction("media_previous", viewModel.mediaSource.value,)
         }
     }
 

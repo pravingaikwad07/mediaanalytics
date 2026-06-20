@@ -66,57 +66,20 @@ object AnalyticsManager {
         logInternal("app_start")
     }
 
-    fun logDefaultMediaSource(sourceName: String) {
+    fun logMediaSourceSelected(oldSource: String, newSource: String, selectionType: String) {
         val bundle = Bundle().apply {
-            putString("source_name", sourceName)
+            putString("old_media_source", oldSource)
+            putString("media_source", newSource)
+            putString("selectionType", selectionType)
         }
-        logInternal("default_media_source", bundle)
-        setUserProperty("favorite_source", sourceName)
+        logInternal("media_source_selected", bundle)
     }
 
-    fun logMediaSourceSwitch(oldSource: String, newSource: String) {
+    fun logMediaInteraction(action: String, sourceName: String) {
         val bundle = Bundle().apply {
-            putString("old_source", oldSource)
-            putString("new_source", newSource)
-        }
-        logInternal("media_source_switch", bundle)
-        setUserProperty("favorite_source", newSource)
-    }
-
-    fun logMediaPlay(itemName: String, sourceName: String, action: String) {
-        val bundle = Bundle().apply {
-            putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
             putString("source_name", sourceName)
             putString("action", action)
         }
-        logInternal("media_play", bundle)
-    }
-
-    fun logMediaPause(itemName: String, sourceName: String, action: String) {
-        val bundle = Bundle().apply {
-            putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
-            putString("source_name", sourceName)
-            putString("action", action)
-        }
-        logInternal("media_pause", bundle)
-    }
-
-    fun logMediaItemNext(currentItemName: String, sourceName: String, action: String) {
-        val bundle = Bundle().apply {
-            putString("current_item_name", currentItemName)
-            putString("source_name", sourceName)
-            putString("action", action)
-        }
-        logInternal("media_item_next", bundle)
-    }
-
-    fun logMediaItemPrevious(currentItemName: String, sourceName: String, action: String) {
-        val bundle = Bundle().apply {
-            putString("current_item_name", currentItemName)
-            putString("source_name", sourceName)
-            putString("action", action)
-
-        }
-        logInternal("media_item_previous", bundle)
+        logInternal("media_action", bundle)
     }
 }

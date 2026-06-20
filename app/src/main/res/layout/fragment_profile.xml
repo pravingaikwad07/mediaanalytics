@@ -54,10 +54,11 @@
                     app:tint="?attr/colorPrimary" />
 
                 <TextView
+                    android:id="@+id/tvUserA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="User A"
+                    android:text="Sushil"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -85,10 +86,11 @@
                     app:tint="?attr/colorSecondary" />
 
                 <TextView
+                    android:id="@+id/tvUserB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="User B"
+                    android:text="Pravin"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -115,6 +117,7 @@
                     app:tint="?attr/colorTertiary" />
 
                 <TextView
+                    android:id="@+id/tvUserC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

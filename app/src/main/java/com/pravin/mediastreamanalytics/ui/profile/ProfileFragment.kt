@@ -39,15 +39,15 @@ class ProfileFragment : Fragment() {
         }
 
         binding.cardUserA.setOnClickListener {
-            selectProfile("user_a", "User A")
+            selectProfile("user_sushil", binding.tvUserA.text.toString())
         }
 
         binding.cardUserB.setOnClickListener {
-            selectProfile("user_b", "User B")
+            selectProfile("user_pravin", binding.tvUserB.text.toString())
         }
 
         binding.cardGuest.setOnClickListener {
-            selectProfile("guest", "Guest")
+            selectProfile("user_guest", binding.tvUserC.text.toString())
         }
     }
 
