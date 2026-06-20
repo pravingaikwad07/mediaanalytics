@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textSize="12sp"
-            tools:text="Event Log..." />
+            android:hint="Event Log..." />
     </ScrollView>
 
     <TextView
