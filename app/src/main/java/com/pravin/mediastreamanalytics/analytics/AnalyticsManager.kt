@@ -83,34 +83,39 @@ object AnalyticsManager {
         setUserProperty("favorite_source", newSource)
     }
 
-    fun logMediaPlay(itemName: String, sourceName: String) {
+    fun logMediaPlay(itemName: String, sourceName: String, action: String) {
         val bundle = Bundle().apply {
             putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
             putString("source_name", sourceName)
+            putString("action", action)
         }
         logInternal("media_play", bundle)
     }
 
-    fun logMediaPause(itemName: String, sourceName: String) {
+    fun logMediaPause(itemName: String, sourceName: String, action: String) {
         val bundle = Bundle().apply {
             putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
             putString("source_name", sourceName)
+            putString("action", action)
         }
         logInternal("media_pause", bundle)
     }
 
-    fun logMediaItemNext(currentItemName: String, sourceName: String) {
+    fun logMediaItemNext(currentItemName: String, sourceName: String, action: String) {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
             putString("source_name", sourceName)
+            putString("action", action)
         }
         logInternal("media_item_next", bundle)
     }
 
-    fun logMediaItemPrevious(currentItemName: String, sourceName: String) {
+    fun logMediaItemPrevious(currentItemName: String, sourceName: String, action: String) {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
             putString("source_name", sourceName)
+            putString("action", action)
+
         }
         logInternal("media_item_previous", bundle)
     }

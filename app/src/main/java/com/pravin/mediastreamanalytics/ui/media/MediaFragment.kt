@@ -83,20 +83,20 @@ class MediaFragment : Fragment() {
             updatePlaceholder(actionText)
             
             if (!wasPlaying) {
-                AnalyticsManager.logMediaPlay("Mock Track", viewModel.mediaSource.value)
+                AnalyticsManager.logMediaPlay("Mock Track", viewModel.mediaSource.value, actionText)
             } else {
-                AnalyticsManager.logMediaPause("Mock Track", viewModel.mediaSource.value)
+                AnalyticsManager.logMediaPause("Mock Track", viewModel.mediaSource.value, actionText)
             }
         }
 
         binding.btnNext.setOnClickListener {
             updatePlaceholder("media_next")
-            AnalyticsManager.logMediaItemNext("Mock Track", viewModel.mediaSource.value)
+            AnalyticsManager.logMediaItemNext("Mock Track", viewModel.mediaSource.value, "media_next")
         }
 
         binding.btnPrevious.setOnClickListener {
             updatePlaceholder("media_previous")
-            AnalyticsManager.logMediaItemPrevious("Mock Track", viewModel.mediaSource.value)
+            AnalyticsManager.logMediaItemPrevious("Mock Track", viewModel.mediaSource.value,"media_previous")
         }
     }
 
