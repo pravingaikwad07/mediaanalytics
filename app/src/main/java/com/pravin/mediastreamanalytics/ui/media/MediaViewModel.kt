@@ -1,11 +1,11 @@
-package com.pravin.mediastreamanalytics.ui.player
+package com.pravin.mediastreamanalytics.ui.media
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PlayerViewModel : ViewModel() {
+class MediaViewModel : ViewModel() {
 
     private val _mediaSource = MutableStateFlow("Spotify")
     val mediaSource: StateFlow<String> = _mediaSource.asStateFlow()

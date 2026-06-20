@@ -1,5 +1,6 @@
-package com.pravin.mediastreamanalytics.ui.player
+package com.pravin.mediastreamanalytics.ui.media
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,22 +16,23 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.pravin.mediastreamanalytics.R
 import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
-import com.pravin.mediastreamanalytics.databinding.FragmentPlayerBinding
+import com.pravin.mediastreamanalytics.databinding.FragmentMediaBinding
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
-class PlayerFragment : Fragment() {
+class MediaFragment : Fragment() {
 
-    private var _binding: FragmentPlayerBinding? = null
+    private var _binding: FragmentMediaBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: PlayerViewModel by viewModels()
+    private val viewModel: MediaViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPlayerBinding.inflate(inflater, container, false)
+        _binding = FragmentMediaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,13 +45,14 @@ class PlayerFragment : Fragment() {
             insets
         }
 
+        val userName = arguments?.getString("userName") ?: "Unknown"
+        binding.tvUser.text = userName
+
         setupDropdown()
         setupListeners()
         observeViewModel()
 
-
-
-        // Log default media source
+        AnalyticsManager.logScreenView("Media Screen", "MediaFragment")
         AnalyticsManager.logDefaultMediaSource(viewModel.mediaSource.value)
     }
 
@@ -76,19 +79,37 @@ class PlayerFragment : Fragment() {
         binding.btnPlayPause.setOnClickListener {
             val wasPlaying = viewModel.isPlaying.value
             viewModel.togglePlayback()
+            val actionText = if (!wasPlaying) "media_play" else "media_pause"
+            updatePlaceholder(actionText)
+            
             if (!wasPlaying) {
-                // We just started playing
-                AnalyticsManager.logMediaItemClick("Mock Track")
+                AnalyticsManager.logMediaPlay("Mock Track", viewModel.mediaSource.value)
+            } else {
+                AnalyticsManager.logMediaPause("Mock Track", viewModel.mediaSource.value)
             }
         }
 
         binding.btnNext.setOnClickListener {
-            AnalyticsManager.logMediaItemNext("Mock Track")
+            updatePlaceholder("media_next")
+            AnalyticsManager.logMediaItemNext("Mock Track", viewModel.mediaSource.value)
         }
 
         binding.btnPrevious.setOnClickListener {
-            AnalyticsManager.logMediaItemPrevious("Mock Track")
+            updatePlaceholder("media_previous")
+            AnalyticsManager.logMediaItemPrevious("Mock Track", viewModel.mediaSource.value)
         }
+    }
+
+    private fun updatePlaceholder(text: String) {
+        binding.mediaPlaceholder.text = text
+        binding.mediaPlaceholder.setBackgroundColor(getRandomColor())
+    }
+
+    private fun getRandomColor(): Int {
+        val r = Random.nextInt(180, 256)
+        val g = Random.nextInt(180, 256)
+        val b = Random.nextInt(180, 256)
+        return Color.rgb(r, g, b)
     }
 
     private fun observeViewModel() {

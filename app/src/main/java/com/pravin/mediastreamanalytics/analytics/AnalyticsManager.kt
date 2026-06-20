@@ -8,13 +8,10 @@ import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
 
-/**
- * Singleton class to manage Firebase Analytics events.
- */
 object AnalyticsManager {
 
     private const val TAG = "AnalyticsManager"
-    private var DEBUG_MODE = true // Toggle for Logs and Toasts
+    private var DEBUG_MODE = true
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var appContext: Context
@@ -25,10 +22,8 @@ object AnalyticsManager {
     }
 
     private fun logInternal(eventName: String, params: Bundle? = null) {
-        // Actual Firebase Logging
         firebaseAnalytics.logEvent(eventName, params)
 
-        // Debug Logs and Toasts
         if (DEBUG_MODE) {
             val message = "Event: $eventName | Params: ${params?.let { bundleToMap(it) } ?: "null"}"
             Log.d(TAG, message)
@@ -44,9 +39,6 @@ object AnalyticsManager {
         return map
     }
 
-    /**
-     * Set the user ID for analytics tracking.
-     */
     fun setUserId(userId: String?) {
         firebaseAnalytics.setUserId(userId)
         if (DEBUG_MODE) {
@@ -55,60 +47,70 @@ object AnalyticsManager {
         }
     }
 
-    /**
-     * Log the app start event.
-     */
+    fun setUserProperty(name: String, value: String?) {
+        firebaseAnalytics.setUserProperty(name, value)
+        if (DEBUG_MODE) {
+            Log.d(TAG, "User Property set: $name = $value")
+        }
+    }
+
+    fun logScreenView(screenName: String, screenClass: String?) {
+        val bundle = Bundle().apply {
+            putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+            putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
+        }
+        logInternal(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
+    }
+
     fun logAppStart() {
         logInternal("app_start")
     }
 
-    /**
-     * Log the default media source selected on start.
-     */
     fun logDefaultMediaSource(sourceName: String) {
         val bundle = Bundle().apply {
             putString("source_name", sourceName)
         }
         logInternal("default_media_source", bundle)
+        setUserProperty("favorite_source", sourceName)
     }
 
-    /**
-     * Log media source switch event.
-     */
     fun logMediaSourceSwitch(oldSource: String, newSource: String) {
         val bundle = Bundle().apply {
             putString("old_source", oldSource)
             putString("new_source", newSource)
         }
         logInternal("media_source_switch", bundle)
+        setUserProperty("favorite_source", newSource)
     }
 
-    /**
-     * Log media item click event.
-     */
-    fun logMediaItemClick(itemName: String) {
+    fun logMediaPlay(itemName: String, sourceName: String) {
         val bundle = Bundle().apply {
             putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
+            putString("source_name", sourceName)
         }
-        logInternal("media_item_click", bundle)
+        logInternal("media_play", bundle)
     }
 
-    /**
-     * Log media item next event.
-     */
-    fun logMediaItemNext(currentItemName: String) {
+    fun logMediaPause(itemName: String, sourceName: String) {
+        val bundle = Bundle().apply {
+            putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
+            putString("source_name", sourceName)
+        }
+        logInternal("media_pause", bundle)
+    }
+
+    fun logMediaItemNext(currentItemName: String, sourceName: String) {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
+            putString("source_name", sourceName)
         }
         logInternal("media_item_next", bundle)
     }
 
-    /**
-     * Log media item previous event.
-     */
-    fun logMediaItemPrevious(currentItemName: String) {
+    fun logMediaItemPrevious(currentItemName: String, sourceName: String) {
         val bundle = Bundle().apply {
             putString("current_item_name", currentItemName)
+            putString("source_name", sourceName)
         }
         logInternal("media_item_previous", bundle)
     }

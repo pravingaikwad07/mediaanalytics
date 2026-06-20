@@ -11,8 +11,8 @@
         android:label="Select Profile"
         tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_profileFragment_to_playerFragment"
-            app:destination="@id/playerFragment"
+            android:id="@+id/action_profileFragment_to_mediaFragment"
+            app:destination="@id/mediaFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -20,8 +20,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/playerFragment"
-        android:name="com.pravin.mediastreamanalytics.ui.player.PlayerFragment"
+        android:id="@+id/mediaFragment"
+        android:name="com.pravin.mediastreamanalytics.ui.media.MediaFragment"
         android:label="Media Player"
-        tools:layout="@layout/fragment_player" />
+        tools:layout="@layout/fragment_media">
+        <argument
+            android:name="userName"
+            app:argType="string" />
+    </fragment>
 </navigation>

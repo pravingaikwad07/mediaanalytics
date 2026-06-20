@@ -4,49 +4,63 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.pravin.mediastreamanalytics.R
 import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
-import com.google.android.material.card.MaterialCardView
+import com.pravin.mediastreamanalytics.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
+
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+        AnalyticsManager.logScreenView("Profile Selection", "ProfileFragment")
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.updatePadding(top = systemBars.top, bottom = systemBars.bottom)
             insets
         }
 
-        view.findViewById<MaterialCardView>(R.id.card_user_a).setOnClickListener {
-            selectProfile("user_a")
+        binding.cardUserA.setOnClickListener {
+            selectProfile("user_a", "User A")
         }
 
-        view.findViewById<MaterialCardView>(R.id.card_user_b).setOnClickListener {
-            selectProfile("user_b")
+        binding.cardUserB.setOnClickListener {
+            selectProfile("user_b", "User B")
         }
 
-        view.findViewById<MaterialCardView>(R.id.card_guest).setOnClickListener {
-            selectProfile("guest")
+        binding.cardGuest.setOnClickListener {
+            selectProfile("guest", "Guest")
         }
     }
 
-    private fun selectProfile(userId: String) {
+    private fun selectProfile(userId: String, userName: String) {
         AnalyticsManager.setUserId(userId)
-        findNavController().navigate(R.id.action_profileFragment_to_playerFragment)
+        val bundle = Bundle().apply {
+            putString("userName", userName)
+        }
+        findNavController().navigate(R.id.action_profileFragment_to_mediaFragment, bundle)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
