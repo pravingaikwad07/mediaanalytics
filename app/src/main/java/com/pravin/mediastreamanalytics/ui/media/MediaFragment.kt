@@ -14,10 +14,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.pravin.mediastreamanalytics.BuildConfig
 import com.pravin.mediastreamanalytics.R
 import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
 import com.pravin.mediastreamanalytics.databinding.FragmentMediaBinding
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlin.random.Random
 
 class MediaFragment : Fragment() {
@@ -47,6 +51,7 @@ class MediaFragment : Fragment() {
 
         val userName = arguments?.getString("userName") ?: "Unknown"
         binding.tvUser.text = userName
+        binding.tvAppVersion.text = "Version: ${BuildConfig.VERSION_NAME}"
 
         setupDropdown()
         setupListeners()
@@ -71,6 +76,7 @@ class MediaFragment : Fragment() {
             if (oldSource != newSource) {
                 viewModel.setMediaSource(newSource)
                 AnalyticsManager.logMediaSourceSelected(oldSource, newSource, "dropdown")
+                logEvent("Source switch: $newSource")
             }
         }
     }
@@ -81,28 +87,32 @@ class MediaFragment : Fragment() {
             viewModel.togglePlayback()
             val actionText = if (!wasPlaying) "media_play" else "media_pause"
             updatePlaceholder(actionText)
-            
-            if (!wasPlaying) {
-                AnalyticsManager.logMediaInteraction(actionText, viewModel.mediaSource.value)
-            } else {
-                AnalyticsManager.logMediaInteraction(actionText,viewModel.mediaSource.value)
-            }
+            logEvent(actionText)
+            AnalyticsManager.logMediaInteraction(actionText, viewModel.mediaSource.value)
         }
 
         binding.btnNext.setOnClickListener {
             updatePlaceholder("media_next")
-            AnalyticsManager.logMediaInteraction("media_next", viewModel.mediaSource.value, )
+            logEvent("media_next")
+            AnalyticsManager.logMediaInteraction("media_next", viewModel.mediaSource.value)
         }
 
         binding.btnPrevious.setOnClickListener {
             updatePlaceholder("media_previous")
-            AnalyticsManager.logMediaInteraction("media_previous", viewModel.mediaSource.value,)
+            logEvent("media_previous")
+            AnalyticsManager.logMediaInteraction("media_previous", viewModel.mediaSource.value)
         }
     }
 
     private fun updatePlaceholder(text: String) {
         binding.mediaPlaceholder.text = text
         binding.mediaPlaceholder.setBackgroundColor(getRandomColor())
+    }
+
+    private fun logEvent(event: String) {
+        val timestamp = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+        val newLog = "[$timestamp] $event\n${binding.tvEventLog.text}"
+        binding.tvEventLog.text = newLog
     }
 
     private fun getRandomColor(): Int {

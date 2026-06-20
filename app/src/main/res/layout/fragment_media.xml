@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".ui.player.PlayerFragment">
+    tools:context=".ui.media.MediaFragment">
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="User Name" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/source_menu"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:hint="Select Media Source"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvUser">
 
         <AutoCompleteTextView
             android:id="@+id/source_auto_complete"
@@ -25,29 +38,27 @@
     <TextView
         android:id="@+id/media_placeholder"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
-        android:scaleType="centerCrop"
         android:text="Media"
-        app:layout_constraintBottom_toTopOf="@+id/controls_container"
-        app:layout_constraintTop_toBottomOf="@id/source_menu"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent" />
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+        app:layout_constraintTop_toBottomOf="@id/source_menu" />
 
     <LinearLayout
         android:id="@+id/controls_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/media_placeholder">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_previous"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/outline_skip_previous_24"
@@ -55,16 +66,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_play_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/error_light"
             app:icon="@drawable/outline_play_arrow_24"
             app:iconSize="32dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_next"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/outline_skip_next_24"
@@ -72,15 +84,34 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorSurfaceVariant"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_app_version"
+        app:layout_constraintTop_toBottomOf="@id/controls_container">
+
+        <TextView
+            android:id="@+id/tv_event_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            tools:text="Event Log..." />
+    </ScrollView>
+
     <TextView
-        android:id="@+id/tvUser"
+        android:id="@+id/tv_app_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Version 1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

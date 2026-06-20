@@ -27,7 +27,7 @@ object AnalyticsManager {
         if (DEBUG_MODE) {
             val message = "Event: $eventName | Params: ${params?.let { bundleToMap(it) } ?: "null"}"
             Log.d(TAG, message)
-            Toast.makeText(appContext, "Logged: $eventName", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(appContext, "Logged: $eventName", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -43,7 +43,7 @@ object AnalyticsManager {
         firebaseAnalytics.setUserId(userId)
         if (DEBUG_MODE) {
             Log.d(TAG, "User ID set to: $userId")
-            Toast.makeText(appContext, "User ID: $userId", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(appContext, "User ID: $userId", Toast.LENGTH_SHORT).show()
         }
     }
 
