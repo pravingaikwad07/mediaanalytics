@@ -13,7 +13,7 @@ class MediaViewModel : ViewModel() {
     private val _isPlaying = MutableStateFlow(false)
     val isPlaying: StateFlow<Boolean> = _isPlaying.asStateFlow()
 
-    val availableSources = listOf("Spotify", "YouTube Music", "Gaana", "SiriusXM", "Radio")
+    val availableSources = listOf("Spotify", "YouTube", "Gaana", "SiriusXM", "Radio")
 
     fun setMediaSource(source: String) {
         _mediaSource.value = source
