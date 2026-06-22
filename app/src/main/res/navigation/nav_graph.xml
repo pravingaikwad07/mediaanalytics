@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.pravin.mediastreamanalytics.ui.profile.ProfileFragment"
+        android:name="com.pravin.newmediaanalytics.ui.profile.ProfileFragment"
         android:label="Select Profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/mediaFragment"
-        android:name="com.pravin.mediastreamanalytics.ui.media.MediaFragment"
+        android:name="com.pravin.newmediaanalytics.ui.media.MediaFragment"
         android:label="Media Player"
         tools:layout="@layout/fragment_media">
         <argument

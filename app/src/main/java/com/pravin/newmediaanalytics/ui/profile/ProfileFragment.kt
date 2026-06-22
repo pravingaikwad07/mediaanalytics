@@ -1,4 +1,4 @@
-package com.pravin.mediastreamanalytics.ui.profile
+package com.pravin.newmediaanalytics.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.pravin.mediastreamanalytics.R
-import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
-import com.pravin.mediastreamanalytics.databinding.FragmentProfileBinding
+import com.pravin.newmediaanalytics.R
+import com.pravin.newmediaanalytics.analytics.AnalyticsManager
+import com.pravin.newmediaanalytics.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 

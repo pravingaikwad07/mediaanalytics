@@ -1,4 +1,4 @@
-package com.pravin.mediastreamanalytics
+package com.pravin.newmediaanalytics
 
 import org.junit.Test
 

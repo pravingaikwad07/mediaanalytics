@@ -1,4 +1,4 @@
-package com.pravin.mediastreamanalytics.analytics
+package com.pravin.newmediaanalytics.analytics
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
-import com.pravin.mediastreamanalytics.BuildConfig
+import com.pravin.newmediaanalytics.BuildConfig
 
 object AnalyticsManager {
 

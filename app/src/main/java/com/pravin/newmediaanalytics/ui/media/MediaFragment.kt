@@ -1,4 +1,4 @@
-package com.pravin.mediastreamanalytics.ui.media
+package com.pravin.newmediaanalytics.ui.media
 
 import android.graphics.Color
 import android.os.Bundle
@@ -14,10 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.pravin.mediastreamanalytics.BuildConfig
-import com.pravin.mediastreamanalytics.R
-import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
-import com.pravin.mediastreamanalytics.databinding.FragmentMediaBinding
+import com.pravin.newmediaanalytics.BuildConfig
+import com.pravin.newmediaanalytics.R
+import com.pravin.newmediaanalytics.analytics.AnalyticsManager
+import com.pravin.newmediaanalytics.databinding.FragmentMediaBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -64,7 +64,7 @@ class MediaFragment : Fragment() {
     private fun setupDropdown() {
         val adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             viewModel.availableSources
         )
         binding.sourceAutoComplete.setAdapter(adapter)

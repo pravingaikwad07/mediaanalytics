@@ -8,15 +8,15 @@ plugins {
 }
 
 android {
-    namespace = "com.pravin.mediastreamanalytics"
+    namespace = "com.pravin.newmediaanalytics"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.pravin.mediastreamanalytics"
+        applicationId = "com.pravin.newmediaanalytics"
         minSdk = 24
         targetSdk = 37
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 4
+        versionName = "4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

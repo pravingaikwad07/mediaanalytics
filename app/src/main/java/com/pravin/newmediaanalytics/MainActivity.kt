@@ -1,11 +1,11 @@
-package com.pravin.mediastreamanalytics
+package com.pravin.newmediaanalytics
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.pravin.mediastreamanalytics.databinding.ActivityMainBinding
+import com.pravin.newmediaanalytics.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

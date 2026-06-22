@@ -1,4 +1,4 @@
-package com.pravin.mediastreamanalytics.ui.media
+package com.pravin.newmediaanalytics.ui.media
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

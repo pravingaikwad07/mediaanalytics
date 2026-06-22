@@ -1,9 +1,9 @@
-package com.pravin.mediastreamanalytics
+package com.pravin.newmediaanalytics
 
 import android.app.Application
 import android.util.Log
 import com.google.firebase.FirebaseApp
-import com.pravin.mediastreamanalytics.analytics.AnalyticsManager
+import com.pravin.newmediaanalytics.analytics.AnalyticsManager
 
 class MediaStreamAnalyticsApp : Application() {
     private val tag = "MediaStreamAnalyticsApp"

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "24354676372",
-    "project_id": "mediastreamanalyticspoc",
-    "storage_bucket": "mediastreamanalyticspoc.firebasestorage.app"
+    "project_number": "893640628391",
+    "project_id": "mynewmediaanalytics",
+    "storage_bucket": "mynewmediaanalytics.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:24354676372:android:0f5aee64ef4f11221f5e81",
+        "mobilesdk_app_id": "1:893640628391:android:b9712362d8b80f378e2382",
         "android_client_info": {
-          "package_name": "com.pravin.mediastreamanalytics"
+          "package_name": "com.pravin.newmediaanalytics"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA5KNlBMmujkzE2bK2xtCnsOP2fRf5wmuk"
+          "current_key": "AIzaSyBBUzKZBcGlyuoF2Je75N4EhS2ZOGx9HPs"
         }
       ],
       "services": {
