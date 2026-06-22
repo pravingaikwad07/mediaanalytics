@@ -3,53 +3,74 @@ package com.pravin.mediastreamanalytics.analytics
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
+import com.pravin.mediastreamanalytics.BuildConfig
 
 object AnalyticsManager {
 
     private const val TAG = "AnalyticsManager"
-    private var DEBUG_MODE = true
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-    private lateinit var appContext: Context
+    private var isInitialized = false
 
     fun initialize(context: Context) {
-        appContext = context.applicationContext
         firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        isInitialized = true
+
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "Firebase Analytics initialized for ${context.packageName}")
+        }
     }
 
     private fun logInternal(eventName: String, params: Bundle? = null) {
+        if (!isInitialized) {
+            Log.w(TAG, "Skipping '$eventName' because Firebase Analytics is not initialized")
+            return
+        }
+
         firebaseAnalytics.logEvent(eventName, params)
 
-        if (DEBUG_MODE) {
+        if (BuildConfig.DEBUG) {
             val message = "Event: $eventName | Params: ${params?.let { bundleToMap(it) } ?: "null"}"
             Log.d(TAG, message)
-           // Toast.makeText(appContext, "Logged: $eventName", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun bundleToMap(bundle: Bundle): Map<String, Any?> {
         val map = mutableMapOf<String, Any?>()
         for (key in bundle.keySet()) {
+            @Suppress("DEPRECATION")
             map[key] = bundle.get(key)
         }
         return map
     }
 
     fun setUserId(userId: String?) {
+        if (!isInitialized) {
+            Log.w(TAG, "Skipping user ID update because Firebase Analytics is not initialized")
+            return
+        }
+
         firebaseAnalytics.setUserId(userId)
-        if (DEBUG_MODE) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "User ID set to: $userId")
-           // Toast.makeText(appContext, "User ID: $userId", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun setUserProperty(name: String, value: String?) {
+        if (!isInitialized) {
+            Log.w(
+                TAG,
+                "Skipping user property update because Firebase Analytics is not initialized"
+            )
+            return
+        }
+
         firebaseAnalytics.setUserProperty(name, value)
-        if (DEBUG_MODE) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "User Property set: $name = $value")
         }
     }
@@ -66,20 +87,29 @@ object AnalyticsManager {
         logInternal("app_start")
     }
 
+    fun logDebugSmokeTest() {
+        if (!BuildConfig.DEBUG) return
+
+        val bundle = Bundle().apply {
+            putString("test_param", "hello")
+        }
+        logInternal("debug_smoke_test", bundle)
+    }
+
     fun logMediaSourceSelected(oldSource: String, newSource: String, selectionType: String) {
         val bundle = Bundle().apply {
-            putString("old_media_source", oldSource)
-            putString("media_source", newSource)
-            putString("selectionType", selectionType)
+            putString("key_media_source_old", oldSource)
+            putString("key_media_source", newSource)
+            putString("key_media_selection_type", selectionType)
         }
-        logInternal("media_source_selected", bundle)
+        logInternal("event_name_media_dropdown", bundle)
     }
 
     fun logMediaInteraction(action: String, sourceName: String) {
         val bundle = Bundle().apply {
-            putString("source_name", sourceName)
-            putString("action", action)
+            putString("key_media_source", sourceName)
+            putString("key_media_action", action)
         }
-        logInternal("media_action", bundle)
+        logInternal("event_name_media_button_actions", bundle)
     }
 }
