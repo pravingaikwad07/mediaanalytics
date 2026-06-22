@@ -14,6 +14,7 @@ object AnalyticsManager {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private var isInitialized = false
+    private var currentUserId: String? = null
 
     fun initialize(context: Context) {
         firebaseAnalytics = Firebase.analytics
@@ -54,6 +55,7 @@ object AnalyticsManager {
             return
         }
 
+        currentUserId = userId
         firebaseAnalytics.setUserId(userId)
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "User ID set to: $userId")
@@ -98,6 +100,7 @@ object AnalyticsManager {
 
     fun logMediaSourceSelected(oldSource: String, newSource: String, selectionType: String) {
         val bundle = Bundle().apply {
+            putString("key_user_id", currentUserId)
             putString("key_media_source_old", oldSource)
             putString("key_media_source", newSource)
             putString("key_media_selection_type", selectionType)
@@ -107,6 +110,7 @@ object AnalyticsManager {
 
     fun logMediaInteraction(action: String, sourceName: String) {
         val bundle = Bundle().apply {
+            putString("key_user_id", currentUserId)
             putString("key_media_source", sourceName)
             putString("key_media_action", action)
         }
